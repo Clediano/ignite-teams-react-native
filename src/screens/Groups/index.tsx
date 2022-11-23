@@ -1,18 +1,35 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { GroupCard } from '@components/GroupCard';
+import { Highlight } from '@components/Highlight';
+import { Header } from '@components/Header';
+
+import { Container } from './styles';
+import { useState } from 'react';
+import { FlatList } from 'react-native';
 
 export function Groups() {
+  const [groups, setGroups] = useState<string[]>([
+    'Galera da Rocket!',
+    'Amigos',
+    'Família'
+  ]);
+
   return (
-    <View style={styles.container}>
-      <Text>Groups!</Text>
-    </View>
+    <Container>
+      <Header />
+      <Highlight title='Turmas' subTitle='jogue com a sua turma' />
+
+      <FlatList
+        data={groups}
+        renderItem={({ item, index }) => {
+          return (
+            <GroupCard
+              key={index}
+              title={item}
+              onPress={() => console.log(item)}
+            />
+          )
+        }}
+      />
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
