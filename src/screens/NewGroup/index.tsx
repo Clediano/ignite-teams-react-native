@@ -1,6 +1,7 @@
-import { Highlight } from '@components/Highlight';
-import { Button } from '@components/Button';
+import { Input } from '@components/Input';
 import { Header } from '@components/Header';
+import { Button } from '@components/Button';
+import { Highlight } from '@components/Highlight';
 
 import { Container, Content, Icon } from './styles';
 import { useState } from 'react';
@@ -22,13 +23,20 @@ export function NewGroup({ }: NewGroupProps) {
 
       <Content>
         <Icon />
-        
+
         <Highlight
           title='Nova Turma'
           subTitle='crie uma turma para adicionar pessoas'
         />
 
-        <Button title='Criar' />
+        <Input
+          placeholder='Nome da turma'
+        />
+
+        <Button
+          title='Criar'
+          style={{ marginTop: 20 }}
+        />
       </Content>
     </Container>
   );
