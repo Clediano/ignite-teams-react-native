@@ -55,6 +55,7 @@ export function Players({ }: PlayersProps) {
                     {players.length}
                 </NumberOfPlayers>
             </HeaderList>
+            
             <FlatList
                 data={players}
                 renderItem={({ item, index }) => (
@@ -71,7 +72,7 @@ export function Players({ }: PlayersProps) {
                 ListEmptyComponent={
                     <ListEmpty message='Não há pessoas nesse time' />
                 }
-                showsVerticalScrollIndicator
+                showsVerticalScrollIndicator={false}
             />
 
             <Button
