@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import { GroupCard } from '@components/GroupCard';
 import { Highlight } from '@components/Highlight';
@@ -9,6 +9,7 @@ import { Header } from '@components/Header';
 import { Button } from '@components/Button';
 
 import { Container } from './styles';
+import { getAllGroups } from '@storage/group/groupgETaLL';
 
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([]);
@@ -17,6 +18,25 @@ export function Groups() {
   function handleNewGroup() {
     navigation.navigate('new');
   }
+
+  async function fetchGroups() {
+    try {
+      const data = await getAllGroups();
+      setGroups(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleOpenGroup(group: string) {
+    navigation.navigate("players", { group });
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchGroups();
+    }, [])
+  )
 
   return (
     <Container>
@@ -30,7 +50,7 @@ export function Groups() {
             <GroupCard
               key={index}
               title={item}
-              onPress={() => console.log(item)}
+              onPress={() => handleOpenGroup(item)}
             />
           )
         }}
